@@ -1,7 +1,7 @@
 import { curry } from "./fx.js";
 
 const validation = {
-  isNumber: curry((value) => {
+  number: curry((value) => {
     if (typeof value !== "number" || !isNaN(value)) {
       throw new TypeError("숫자를 입력해주세요.");
     }
@@ -9,7 +9,7 @@ const validation = {
     return value;
   }),
 
-  isInteger: curry((value) => {
+  integer: curry((value) => {
     if (!Number.isInteger(value)) {
       throw new TypeError("정수를 입력해주세요.");
     }
@@ -17,22 +17,30 @@ const validation = {
     return value;
   }),
 
-  isInRange: curry((min, max, value) => {
-    if (value < min || value > max) {
-      throw new RangeError(`${min} ~ ${max} 사이의 값을 입력해주세요.`);
+  min: curry((min, value) => {
+    if (value < min) {
+      throw new RangeError(`${min} 이상의 값을 입력해주세요.`);
     }
 
     return value;
   }),
 
-  isUniqueArray: curry((array) => {
+  max: curry((max, value) => {
+    if (value > max) {
+      throw new RangeError(`${max} 이하의 값을 입력해주세요.`);
+    }
+
+    return value;
+  }),
+
+  unique: curry((array) => {
     if (new Set(array).size !== array.length) {
       throw new RangeError("중복되지 않은 값을 입력해주세요.");
     }
     return array;
   }),
 
-  isArrayOfSize: curry((size, array) => {
+  size: curry((size, array) => {
     if (array.length !== size) {
       throw new RangeError(`${size}개의 값을 입력해주세요.`);
     }
@@ -40,15 +48,7 @@ const validation = {
     return array;
   }),
 
-  isArrayOfType: curry((typeCheckFn, array) => {
-    if (array.some((item) => !typeCheckFn(item))) {
-      throw new TypeError("배열 요소는 타입 체크를 만족해야 합니다.");
-    }
-
-    return array;
-  }),
-
-  isNotIncluded: curry((array, value) => {
+  notIncluded: curry((array, value) => {
     if (array.includes(value)) {
       throw new RangeError("포함되지 않은 값을 입력해주세요.");
     }
@@ -56,7 +56,7 @@ const validation = {
     return value;
   }),
 
-  isIncluded: curry((array, value) => {
+  included: curry((array, value) => {
     if (!array.includes(value)) {
       throw new RangeError("포함된 값을 입력해주세요.");
     }
