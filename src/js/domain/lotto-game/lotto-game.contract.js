@@ -1,21 +1,22 @@
-import { curry, go } from "../../utils/fx.js";
+import { curry, compose } from "../../utils/fx.js";
 import validation from "../../utils/validation.js";
 import LOTTO from "../lotto/lotto.constant.js";
 
 import { LOTTO_GAME_RANK } from "./lotto-game.constant.js";
 
 export const validateBonusNumber = curry((winningNumbers, bonusNumber) =>
-  go(
+  compose(
     bonusNumber,
-    validation.isInteger,
-    validation.isInRange(LOTTO.MIN_NUMBER, LOTTO.MAX_NUMBER),
-    validation.isNotIncluded(winningNumbers),
+    validation.integer,
+    validation.min(LOTTO.MIN_NUMBER),
+    validation.max(LOTTO.MAX_NUMBER),
+    validation.notIncluded(winningNumbers),
   ),
 );
 
 export const validateRank = (rank) =>
-  go(
+  compose(
     rank,
-    validation.isInteger,
-    validation.isIncluded(Object.values(LOTTO_GAME_RANK)),
+    validation.integer,
+    validation.included(Object.values(LOTTO_GAME_RANK)),
   );
