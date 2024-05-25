@@ -1,4 +1,5 @@
 const path = require("path");
+
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 module.exports = {
@@ -6,7 +7,7 @@ module.exports = {
   entry: "./src/step-console-index.js",
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "step-console-bundle.js",
+    filename: "step-console-bundle.cjs",
   },
   resolve: {
     extensions: [".js", ".mjs"],

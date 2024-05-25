@@ -61,7 +61,7 @@ class LottoGameView {
   async inputRestart() {
     const message = "> 다시 시작하시겠습니까? (y/n)\n";
     const format = (input) => input.trim();
-    const validate = validation.isIncluded(["y", "n"]);
+    const validate = validation.included(["y", "n"]);
 
     return await prompt({ message, format, validate });
   }

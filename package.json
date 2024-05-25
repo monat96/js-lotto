@@ -6,9 +6,10 @@
   "type": "module",
   "scripts": {
     "test": "jest --watch --no-cache",
-    "build-step-console": "webpack --config step-console.config.js",
-    "start-step-console": "npm run build-step-console && node dist/step-console-bundle.js",
-    "start-step-web": "webpack serve --open --config step-web.config.js",
+    "build-step-console": "webpack --config step-console.config.cjs",
+    "start-step-console": "npm run build-step-console && node dist/step-console-bundle.cjs",
+    "build-web": "webpack --mode production --config step-web.config.cjs",
+    "start-step-web": "webpack serve --open --config step-web.config.cjs",
     "lint": "eslint 'src/**/*.{js,jsx}' '__tests__/**/*.{js,jsx}' --ext .js,.jsx --no-error-on-unmatched-pattern",
     "lint:fix": "eslint 'src/**/*.{js,jsx}' '__tests__/**/*.{js,jsx}' --ext .js,.jsx --fix --no-error-on-unmatched-pattern"
   },
